@@ -115,6 +115,10 @@
             }
         }
 
+        /* ══════════════════════════════════════════════════════════
+           VS COMPARISON PILLS - Legacy styles removed, using paths-wrapper
+           ══════════════════════════════════════════════════════════ */
+
         /* Typography */
         .headline {
             font-family: 'Instrument Serif', Georgia, serif;
@@ -525,6 +529,126 @@
         /* ══════════════════════════════════════════════════════════
            THREE PATHS - COMPARISON CARDS
            ══════════════════════════════════════════════════════════ */
+        .paths-wrapper {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            max-width: 1200px;
+            width: 100%;
+            padding: 1rem;
+        }
+
+        .paths-wrapper .path-card {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* VS PILLS */
+        .vs-pill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 56px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0 0.25rem;
+        }
+
+        .vs-pill-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .vs-pill:hover .vs-pill-btn {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(201, 169, 98, 0.2);
+        }
+
+        .vs-pill.active .vs-pill-btn {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: var(--bg-dark);
+            transform: scale(1.15);
+            box-shadow: 0 0 30px rgba(201, 169, 98, 0.4);
+        }
+
+        .vs-arrow {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .vs-pill:hover .vs-arrow {
+            opacity: 0.7;
+            color: var(--accent-gold);
+        }
+
+        .vs-pill.active .vs-arrow {
+            opacity: 1;
+            color: var(--accent-gold);
+            animation: arrowPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(2px); opacity: 0.6; }
+        }
+
+        .vs-pill.active .vs-arrow:first-child {
+            animation: arrowPulseLeft 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowPulseLeft {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(-2px); opacity: 0.6; }
+        }
+
+        /* Comparison active states */
+        .path-card.dimmed {
+            opacity: 0.15;
+            pointer-events: none;
+            transform: scale(0.96);
+            filter: grayscale(0.5);
+        }
+
+        .path-card.comparing {
+            border-color: var(--card-accent);
+            box-shadow: var(--card-glow);
+        }
+
+        .path-card.comparing .card-row.same-value {
+            opacity: 0.25;
+        }
+
+        .path-card.comparing .card-row.diff-value {
+            background: rgba(201, 169, 98, 0.08);
+            border-radius: 6px;
+            margin: 0 -0.5rem;
+            padding: 0.5rem;
+        }
+
+        .path-card.comparing .card-row.diff-value .card-value {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
         .paths-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1254,6 +1378,35 @@
            RESPONSIVE - MOBILE OPTIMIZATION
            ══════════════════════════════════════════════════════════ */
         @media (max-width: 900px) {
+            .paths-wrapper {
+                flex-direction: column;
+                gap: 0;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .paths-wrapper .path-card {
+                width: 100%;
+            }
+
+            .vs-pill {
+                flex-direction: row;
+                min-width: auto;
+                width: 100%;
+                padding: 0.85rem 0;
+                gap: 1rem;
+            }
+
+            .vs-arrow {
+                transform: rotate(90deg);
+            }
+
+            .vs-pill-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 0.7rem;
+            }
+
             .paths-container {
                 grid-template-columns: 1fr;
                 max-width: 380px;
@@ -1282,7 +1435,7 @@
             .section {
                 padding: 1.25rem;
                 padding-top: 2rem;
-                padding-bottom: 120px;
+                padding-bottom: 140px;
             }
 
             .headline {
@@ -1360,6 +1513,7 @@
 
             .ask-container {
                 padding: 1.5rem 0.75rem;
+                padding-bottom: 3rem;
             }
 
             .ask-card {
@@ -1527,15 +1681,15 @@
     <!-- SECTION 3: THE THREE PATHS -->
     <section class="section" id="section3" data-section="3">
         <div class="section-centered">
-            <div class="paths-container">
+            <div class="paths-wrapper">
                 <!-- CARD A: $200K -->
-                <div class="path-card card-a fade-in" onclick="selectPath('a')">
+                <div class="path-card card-a fade-in" data-card="a" onclick="selectPath('a')">
                     <div class="card-price">$200k</div>
                     <div class="card-name">"Non-Exclusive Consultant"</div>
                     <div class="card-row"><span class="card-label">Title</span><span class="card-value">Head of Special Projects</span></div>
                     <div class="card-row"><span class="card-label">Scope</span><span class="card-value">Project Olympus only</span></div>
                     <div class="card-row"><span class="card-label">Employment</span><span class="card-value">Contractor</span></div>
-                    <div class="card-row"><span class="card-label">In-Office</span><span class="card-value">As needed</span></div>
+                    <div class="card-row"><span class="card-label">In Office (Monthly)</span><span class="card-value">As needed</span></div>
                     <div class="card-row"><span class="card-label">Time Commitment</span><span class="card-value">~70%</span></div>
                     <div class="card-row"><span class="card-label">Exclusivity</span><span class="card-value">Non-exclusive</span></div>
                     <div class="card-row"><span class="card-label">New Clients</span><span class="card-value yes">Yes</span></div>
@@ -1546,14 +1700,21 @@
                     <button class="btn card-btn">Details →</button>
                 </div>
 
+                <!-- VS PILL: $200k vs $300k -->
+                <div class="vs-pill" data-compare="a-b" onclick="event.stopPropagation(); togglePairComparison('a-b')">
+                    <span class="vs-arrow">‹</span>
+                    <button class="vs-pill-btn">VS</button>
+                    <span class="vs-arrow">›</span>
+                </div>
+
                 <!-- CARD B: $300K -->
-                <div class="path-card card-b fade-in" onclick="selectPath('b')">
+                <div class="path-card card-b fade-in" data-card="b" onclick="selectPath('b')">
                     <div class="card-price">$300k</div>
                     <div class="card-name">"Exclusive Consultant"</div>
                     <div class="card-row"><span class="card-label">Title</span><span class="card-value">Head of Special Projects</span></div>
                     <div class="card-row"><span class="card-label">Scope</span><span class="card-value">Current scope</span></div>
                     <div class="card-row"><span class="card-label">Employment</span><span class="card-value">Contractor</span></div>
-                    <div class="card-row"><span class="card-label">In-Office</span><span class="card-value">1-2 weeks in Austin</span></div>
+                    <div class="card-row"><span class="card-label">In Office (Monthly)</span><span class="card-value">1-2 weeks in Austin</span></div>
                     <div class="card-row"><span class="card-label">Time Commitment</span><span class="card-value">~85%</span></div>
                     <div class="card-row"><span class="card-label">Exclusivity</span><span class="card-value">Exclusive to CT</span></div>
                     <div class="card-row"><span class="card-label">New Clients</span><span class="card-value no">No</span></div>
@@ -1564,14 +1725,21 @@
                     <button class="btn card-btn">Details →</button>
                 </div>
 
+                <!-- VS PILL: $300k vs $400k -->
+                <div class="vs-pill" data-compare="b-c" onclick="event.stopPropagation(); togglePairComparison('b-c')">
+                    <span class="vs-arrow">‹</span>
+                    <button class="vs-pill-btn">VS</button>
+                    <span class="vs-arrow">›</span>
+                </div>
+
                 <!-- CARD C: $400K -->
-                <div class="path-card card-c fade-in" onclick="selectPath('c')">
+                <div class="path-card card-c fade-in" data-card="c" onclick="selectPath('c')">
                     <div class="card-price">$400k</div>
                     <div class="card-name">"Full-Time Employee"</div>
                     <div class="card-row"><span class="card-label">Title</span><span class="card-value highlight">Chief Strategy Officer</span></div>
                     <div class="card-row"><span class="card-label">Scope</span><span class="card-value">Whatever CT needs</span></div>
                     <div class="card-row"><span class="card-label">Employment</span><span class="card-value highlight">W-2</span></div>
-                    <div class="card-row"><span class="card-label">In-Office</span><span class="card-value">3 weeks in Austin</span></div>
+                    <div class="card-row"><span class="card-label">In Office (Monthly)</span><span class="card-value">3 weeks in Austin</span></div>
                     <div class="card-row"><span class="card-label">Time Commitment</span><span class="card-value highlight">100%</span></div>
                     <div class="card-row"><span class="card-label">Exclusivity</span><span class="card-value">Exclusive to CT</span></div>
                     <div class="card-row"><span class="card-label">New Clients</span><span class="card-value no">No</span></div>
@@ -1730,7 +1898,7 @@
             <div class="ask-container">
                 <div class="ask-card selected" id="askCard"></div>
                 <div class="ask-alternatives" id="askAlternatives"></div>
-                <button class="btn btn-hero btn-talk btn-shimmer" onclick="goToSection(7)" style="margin-top: 1.5rem;">THAT'S ALL FOLKS <span>→</span></button>
+                <button class="btn btn-hero btn-talk btn-shimmer" onclick="goToSection(7)" style="margin-top: 1.5rem; margin-bottom: 2rem;">THAT'S ALL FOLKS <span>→</span></button>
             </div>
         </div>
     </section>
@@ -1825,6 +1993,11 @@
                 return;
             }
             
+            // Reset comparison when leaving section 3
+            if (currentSection === 3 && index !== 3) {
+                resetComparison();
+            }
+            
             const sections = document.querySelectorAll('.section');
             sections.forEach(s => s.classList.remove('active'));
             let targetSection;
@@ -1842,6 +2015,15 @@
                 if (index === 6) updateAskCard();
                 if (index === 7) startCountdown();
             }
+        }
+        
+        function resetComparison() {
+            activeComparison = null;
+            document.querySelectorAll('.vs-pill').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.path-card').forEach(c => {
+                c.classList.remove('dimmed', 'comparing');
+            });
+            clearDifferenceMarks();
         }
 
         function navigateBack() {
@@ -1871,6 +2053,96 @@
 
         function selectPath(path) { selectedPath = path; goToSection(`4${path}`); }
         function selectFinal(path) { selectedPath = path; }
+
+        let activeComparison = null; // Track which comparison is active: 'a-b' or 'b-c' or null
+
+        function togglePairComparison(pair) {
+            const pills = document.querySelectorAll('.vs-pill');
+            const cards = document.querySelectorAll('.path-card');
+            const clickedPill = document.querySelector(`.vs-pill[data-compare="${pair}"]`);
+            
+            // If clicking the same pill, toggle off
+            if (activeComparison === pair) {
+                activeComparison = null;
+                pills.forEach(p => p.classList.remove('active'));
+                cards.forEach(c => {
+                    c.classList.remove('dimmed', 'comparing');
+                });
+                clearDifferenceMarks();
+                return;
+            }
+            
+            // Activate new comparison
+            activeComparison = pair;
+            pills.forEach(p => p.classList.remove('active'));
+            clickedPill.classList.add('active');
+            
+            // Determine which cards to compare
+            const [card1, card2] = pair.split('-');
+            const excludedCard = ['a', 'b', 'c'].find(c => c !== card1 && c !== card2);
+            
+            cards.forEach(card => {
+                const cardId = card.dataset.card;
+                card.classList.remove('dimmed', 'comparing');
+                
+                if (cardId === excludedCard) {
+                    card.classList.add('dimmed');
+                } else {
+                    card.classList.add('comparing');
+                }
+            });
+            
+            markPairDifferences(card1, card2);
+        }
+
+        function markPairDifferences(card1Id, card2Id) {
+            clearDifferenceMarks();
+            
+            const card1 = document.querySelector(`.path-card[data-card="${card1Id}"]`);
+            const card2 = document.querySelector(`.path-card[data-card="${card2Id}"]`);
+            
+            if (!card1 || !card2) return;
+            
+            const rows1 = card1.querySelectorAll('.card-row');
+            const rows2 = card2.querySelectorAll('.card-row');
+            
+            // Create a map of labels to values for card2
+            const card2Values = {};
+            rows2.forEach(row => {
+                const label = row.querySelector('.card-label')?.textContent.trim().replace(/ⓘ/g, '').trim();
+                const value = row.querySelector('.card-value')?.textContent.trim();
+                card2Values[label] = { row, value };
+            });
+            
+            // Compare and mark differences
+            rows1.forEach(row => {
+                const label = row.querySelector('.card-label')?.textContent.trim().replace(/ⓘ/g, '').trim();
+                const value1 = row.querySelector('.card-value')?.textContent.trim();
+                const card2Data = card2Values[label];
+                
+                if (card2Data) {
+                    const isSame = value1 === card2Data.value;
+                    row.classList.add(isSame ? 'same-value' : 'diff-value');
+                    card2Data.row.classList.add(isSame ? 'same-value' : 'diff-value');
+                }
+            });
+        }
+
+        function clearDifferenceMarks() {
+            document.querySelectorAll('.card-row').forEach(row => {
+                row.classList.remove('same-value', 'diff-value');
+            });
+        }
+
+        // Legacy function - keeping for compatibility
+        function toggleComparison() {
+            // Redirect to first pair comparison
+            togglePairComparison('a-b');
+        }
+
+        function markDifferences() {
+            // Legacy - now handled by markPairDifferences
+        }
 
         function triggerSectionAnimations(section) {
             const fadeElements = section.querySelectorAll('.fade-in');
